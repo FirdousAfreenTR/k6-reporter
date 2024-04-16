@@ -12,7 +12,7 @@ const version = '2.3.0'
 //
 // Main function should be imported and wrapped with the function handleSummary
 //
-export function htmlReport(data, opts = {}) {
+export function htmlReport(data, gstMethods, opts = {}) {
   // Default options
   if (!opts.title) {
     opts.title = new Date().toISOString().slice(0, 16).replace('T', ' ')
@@ -95,6 +95,7 @@ export function htmlReport(data, opts = {}) {
   // Render the template
   const html = ejs.render(template, {
     data,
+    gstMethods,
     title: opts.title,
     standardMetrics,
     otherMetrics,
@@ -103,7 +104,7 @@ export function htmlReport(data, opts = {}) {
     checkFailures,
     checkPasses,
     version,
-  })
+  });
 
   // Return HTML string needs wrapping in a handleSummary result object
   // See https://k6.io/docs/results-visualization/end-of-test-summary#handlesummary-callback

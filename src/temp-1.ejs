@@ -261,48 +261,87 @@
 
         <% 
           first = true 
+          var sortedMetrics = {}
+          Object.keys(data.metrics).sort().forEach(function(k) {
+            sortedMetrics[k] = data.metrics[k]
+          });
+          for(metricName in sortedMetrics) {
+            if(standardMetrics.includes(metricName) || otherMetrics.includes(metricName)) { continue }
+            var metric = sortedMetrics[metricName] 
         %>
-
           <% if(first) { first = false %> <h2>Custom Metrics</h2> 
-            <table class="pure-table pure-table-striped">
-              <tbody>
-                <thead>
-                  <tr>
-                    <th>Method</th>
-                    <th>Pass Count</th>
-                    <th>Fail Count</th>
-                    <th>Average</th>
-                    <th>Maximum</th>
-                    <th>Median</th>
-                    <th>Minimum</th>
-                    <th>90th Percentile</th>
-                    <th>95th Percentile</th>
-                  </tr>
-                </thead>
-                <% gst_methods.forEach((method) => {
-                    let passMetricName = `PassCount_${method}`;
-                    let failMetricName = `FailCount_${method}`;
-                    let trendMetricName = `TREND_${method}`;
-                    
-                    if (data.metrics.hasOwnProperty(passMetricName) || data.metrics.hasOwnProperty(failMetricName)) {
-                      <tr>
-                        <td><b><%= method %></b></td>
-                        
-                        <td><%= data.metrics.passMetricName ? data.metrics.passMetricName.values.count.toFixed(2) : '-' %></td>
-                        <td><%= data.metrics.failMetricName ? data.metrics.failMetricName.values.count.toFixed(2) : '-' %></td>
-                        <td><%= data.metrics.trendMetricName ? data.metrics.trendMetricName.values.avg.toFixed(2) : '-' %></td>
-                        <td><%= data.metrics.trendMetricName ? data.metrics.trendMetricName.values.max.toFixed(2) : '-' %></td>
-                        <td><%= data.metrics.trendMetricName ? data.metrics.trendMetricName.values.med.toFixed(2) : '-' %></td>
-                        <td><%= data.metrics.trendMetricName ? data.metrics.trendMetricName.values.min.toFixed(2) : '-' %></td>
-                        <td><%= data.metrics.trendMetricName ? data.metrics.trendMetricName.values['p(90)'].toFixed(2) : '-' %></td>
-                        <td><%= data.metrics.trendMetricName ? data.metrics.trendMetricName.values['p(95)'].toFixed(2) : '-' %></td>
-                      </tr>
-                    <% }
-                }); %>
-              </tbody>
-            </table>
-          <% } %>
+          <table class="pure-table pure-table-striped">
+            <tbody>
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Pass Count</th>
+                  <th>Fail Count</th>
+                  <th>Average</th>
+                  <th>Maximum</th>
+                  <th>Median</th> 
+                  <th>Minimum</th>
+                  <th>90th Percentile</th>
+                  <th>95th Percentile</th>
+                </tr>
+              </thead>
+              <% } %>
+              <tr>
+                <td><b><%= metricName %></b></td>
+
+                <% if(metric.values.count) { %>
+                  <td class="<%= checkFailed(metric, 'count') %>"><%= metric.values.count.toFixed(2) %></td>
+                <% } else { %>
+                  <td>-</td>
+                <% } %>
+
+                <% if(metric.values.rate) { %>
+                  <td class="<%= checkFailed(metric, 'rate') %>"><%= metric.values.rate.toFixed(2) %></td>
+                <% } else { %>
+                  <td>-</td>
+                <% } %>
+                
+                <% if(metric.values.avg) { %>
+                  <td class="<%= checkFailed(metric, 'avg') %>"><%= metric.values.avg.toFixed(2) %></td>
+                <% } else { %>
+                  <td>-</td>
+                <% } %>
+
+                <% if(metric.values.max) { %>
+                  <td class="<%= checkFailed(metric, 'max') %>"><%= metric.values.max.toFixed(2) %></td>
+                <% } else { %>
+                  <td>-</td>
+                <% } %>  
+
+                <% if(metric.values.med) { %>
+                  <td class="<%= checkFailed(metric, 'med') %>"><%= metric.values.med.toFixed(2) %></td>
+                <% } else { %>
+                  <td>-</td>
+                <% } %>  
+                
+                <% if(metric.values.min) { %>
+                  <td class="<%= checkFailed(metric, 'min') %>"><%= metric.values.min.toFixed(2) %></td>
+                <% } else { %>
+                  <td>-</td>
+                <% } %>   
+                              
+                <% if(metric.values['p(90)']) { %>
+                  <td class="<%= checkFailed(metric, 'p(90)') %>"><%= metric.values['p(90)'].toFixed(2) %></td>
+                <% } else { %>
+                  <td>-</td>
+                <% } %>
+
+                <% if(metric.values['p(95)']) { %>
+                  <td class="<%= checkFailed(metric, 'p(95)') %>"><%= metric.values['p(95)'].toFixed(2) %></td>
+                <% } else { %>
+                  <td>-</td> 
+                <% } %>
+              </tr>
+              <% } %>
+            </tbody>
+          </table>
           <br>
+
 
         &nbsp;&nbsp; Note. All times are in milli-seconds
       </div> 
