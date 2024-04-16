@@ -263,7 +263,7 @@
           first = true 
         %>
 
-          <% if(first) { first = false } %> <h2>Custom Metrics</h2> 
+          <% if(first) { first = false %> <h2>Custom Metrics</h2> 
             <table class="pure-table pure-table-striped">
               <tbody>
                 <thead>
@@ -279,6 +279,7 @@
                     <th>95th Percentile</th>
                   </tr>
                 </thead>
+                <% } %>
                 <% gst_methods.forEach((method) => {
                     let passMetricName = `PassCount_${method}`;
                     let failMetricName = `FailCount_${method}`;
