@@ -296,11 +296,10 @@
                         <td><%= data.metrics.[trendMetricName] ? data.metrics[trendMetricName].values.med.toFixed(2) : '-' %></td>
                         <td><%= data.metrics[trendMetricNam] ? data.metrics[trendMetricName].values.min.toFixed(2) : '-' %></td>
                         <td><%= data.metrics[trendMetricName] ? data.metrics[trendMetricName.values['p(90)'].toFixed(2) : '-' %></td>
-                        <td><%= data.metrics.[trendMetricName] ? data.metrics[trendMetricName].values['p(95)'].toFixed(2) : '-' %></td>
+                        <td><%= data.metrics[trendMetricName] ? data.metrics[trendMetricName].values['p(95)'].toFixed(2) : '-' %></td>
                       </tr>
-                    <% }
-                  }); 
-                %>
+                    <% } %>
+                  <% }); %>
               </tbody>
             </table>
           <br>
