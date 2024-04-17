@@ -290,7 +290,7 @@
                         <td><b><%= method %></b></td>
                         
                         <td><%= data.metrics[passMetricName] ? data.metrics[passMetricName].values.count.toFixed(2) : '-' %></td>
-                        <td><%= data.metrics.failMetricName ? data.metrics.failMetricName.values.count.toFixed(2) : '-' %></td>
+                        <td><%= data.metrics[failMetricName] ? data.metrics[failMetricName].values.count.toFixed(2) : '-' %></td>
                         <td><%= data.metrics.trendMetricName ? data.metrics.trendMetricName.values.avg.toFixed(2) : '-' %></td>
                         <td><%= data.metrics.trendMetricName ? data.metrics.trendMetricName.values.max.toFixed(2) : '-' %></td>
                         <td><%= data.metrics.trendMetricName ? data.metrics.trendMetricName.values.med.toFixed(2) : '-' %></td>
