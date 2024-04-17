@@ -280,26 +280,29 @@
                   </tr>
                 </thead>
                 <% } %>
-                <% gstMethods.forEach((method) => {
-                    let passMetricName = `PassCount_${method}`;
-                    let failMetricName = `FailCount_${method}`;
-                    let trendMetricName = `TREND_${method}`;
+                <%
+                gstMethods.forEach((method) => {
+                  let passMetricName = `PassCount_${method}`;
+                  let failMetricName = `FailCount_${method}`;
+                  let trendMetricName = `TREND_${method}`;
                     
-                    if (data.metrics.hasOwnProperty(passMetricName) || data.metrics.hasOwnProperty(failMetricName)) {
-                      <tr>
-                        <td><b><%= method %></b></td>
+                  if (data.metrics.hasOwnProperty(passMetricName) || data.metrics.hasOwnProperty(failMetricName)) {
+                %>
+                
+                    <tr>
+                      <td><b><%= method %></b></td>
                         
-                        <td><%= data.metrics[passMetricName] ? data.metrics[passMetricName].values.count.toFixed(2) : '-' %></td>
-                        <td><%= data.metrics[failMetricName] ? data.metrics[failMetricName].values.count.toFixed(2) : '-' %></td>
-                        <td><%= data.metrics[trendMetricName] ? data.metrics[trendMetricName].values.avg.toFixed(2) : '-' %></td>
-                        <td><%= data.metrics[trendMetricName] ? data.metrics[trendMetricName].values.max.toFixed(2) : '-' %></td>
-                        <td><%= data.metrics[trendMetricName] ? data.metrics[trendMetricName].values.med.toFixed(2) : '-' %></td>
-                        <td><%= data.metrics[trendMetricName] ? data.metrics[trendMetricName].values.min.toFixed(2) : '-' %></td>
-                        <td><%= data.metrics[trendMetricName] ? data.metrics[trendMetricName].values['p(90)'].toFixed(2) : '-' %></td>
-                        <td><%= data.metrics[trendMetricName] ? data.metrics[trendMetricName].values['p(95)'].toFixed(2) : '-' %></td>
-                      </tr>
-                    <% } %>
-                  <% }); %>
+                      <td><%= data.metrics[passMetricName] ? data.metrics[passMetricName].values.count.toFixed(2) : '-' %></td>
+                      <td><%= data.metrics[failMetricName] ? data.metrics[failMetricName].values.count.toFixed(2) : '-' %></td>
+                      <td><%= data.metrics[trendMetricName] ? data.metrics[trendMetricName].values.avg.toFixed(2) : '-' %></td>
+                      <td><%= data.metrics[trendMetricName] ? data.metrics[trendMetricName].values.max.toFixed(2) : '-' %></td>
+                      <td><%= data.metrics[trendMetricName] ? data.metrics[trendMetricName].values.med.toFixed(2) : '-' %></td>
+                      <td><%= data.metrics[trendMetricName] ? data.metrics[trendMetricName].values.min.toFixed(2) : '-' %></td>
+                      <td><%= data.metrics[trendMetricName] ? data.metrics[trendMetricName].values['p(90)'].toFixed(2) : '-' %></td>
+                      <td><%= data.metrics[trendMetricName] ? data.metrics[trendMetricName].values['p(95)'].toFixed(2) : '-' %></td>
+                    </tr>
+                  <% }
+                }); %>
               </tbody>
             </table>
           <br>
